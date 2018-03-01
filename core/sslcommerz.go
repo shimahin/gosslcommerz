@@ -14,6 +14,8 @@ const SANDBOX_GATEWAY =  "https://sandbox.sslcommerz.com"
 const SESSION_URI = "gwprocess/v3/api.php"
 
 type SslCommerz struct {
+	StoreID string
+	StorePass string
 }
 
 func(s *SslCommerz) CreateSession(data *url.Values) (*models.SessionResponse, error){
