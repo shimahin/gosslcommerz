@@ -1,15 +1,14 @@
 package core
 
 import (
-	"fmt"
-	"net/http"
-	"strings"
 	"crypto/md5"
 	"encoding/hex"
 	"errors"
+	"fmt"
+	"net/http"
 	"sort"
+	"strings"
 )
-
 
 /*
 Sample Request
@@ -68,17 +67,17 @@ func (s *SslCommerz) IPNListener(request *http.Request) (map[string]interface{},
 
 		// Hash Verification
 		/*
-		Method to validate the hash
-		Catch two POST parameters verify_sign and verify_key.
-		Explode the parameter verify_key by comma (,). Here, this parameter contents all the parameters which are returned from SSLCommerz and combination of these value generates the verify_sign value.
-		Serialize all these parameters by their name
-		Example: value of verify_key (before the serial): key1,key3,key2,key5,key4
-		Add the store_passwd and your store password value with verify_key
-		Example: Now the verify_key (after adding store_passwd): key1,key3,key2,key5,key4,store_passwd
-		Example: value of verify_key (after the serialized): key1,key2,key3,key4,key5,store_passwd
-		Make a string by combining the parameters' key and value. Example: key1=value1&key2=value2&key3=value3&key4=value4&key5=value5&store_passwd=Your Store Password
-		Generate md5 hash of the value and match with verify_sign
-	*/
+			Method to validate the hash
+			Catch two POST parameters verify_sign and verify_key.
+			Explode the parameter verify_key by comma (,). Here, this parameter contents all the parameters which are returned from SSLCommerz and combination of these value generates the verify_sign value.
+			Serialize all these parameters by their name
+			Example: value of verify_key (before the serial): key1,key3,key2,key5,key4
+			Add the store_passwd and your store password value with verify_key
+			Example: Now the verify_key (after adding store_passwd): key1,key3,key2,key5,key4,store_passwd
+			Example: value of verify_key (after the serialized): key1,key2,key3,key4,key5,store_passwd
+			Make a string by combining the parameters' key and value. Example: key1=value1&key2=value2&key3=value3&key4=value4&key5=value5&store_passwd=Your Store Password
+			Generate md5 hash of the value and match with verify_sign
+		*/
 		keys := strings.Split(ipnResponse["verify_key"].([]string)[0], ",")
 
 		var queryStrings []string
@@ -93,11 +92,9 @@ func (s *SslCommerz) IPNListener(request *http.Request) (map[string]interface{},
 		// add store pass as per doc said
 		queryStrings = append(queryStrings, fmt.Sprintf("store_passwd=%s", passmd5Hash))
 
-
 		sort.Strings(queryStrings) // sort
 
 		queryString := strings.Join(queryStrings, "&")
-
 
 		hasher.Write([]byte(queryString))
 		md5Hash := hex.EncodeToString(hasher.Sum(nil))
@@ -112,5 +109,5 @@ func (s *SslCommerz) IPNListener(request *http.Request) (map[string]interface{},
 		return ipnResponse, nil
 	}
 
-	return nil , errors.New("Bad Request `verify_key` not found")
+	return nil, errors.New("Bad Request `verify_key` not found")
 }
