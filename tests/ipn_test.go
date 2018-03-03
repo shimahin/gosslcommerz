@@ -35,7 +35,8 @@ func TestIPN(t *testing.T) {
 
 		t.Log(orderResp)
 
-		//transactionQuery , err := x.TransactionQuery(data["sessionkey"].([]string), sslcom.StoreId, sslcom.StorePass, "1", "json")
+		transactionQuery , err := x.TransactionQuery(data["tran_id"].([]string), sslcom.StoreId, sslcom.StorePass)
+		fmt.Println(transactionQuery)
 
 	})
 	router.Run(":8080")

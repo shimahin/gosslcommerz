@@ -8,7 +8,6 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
-	"fmt"
 )
 
 const SANDBOX_GATEWAY = "https://sandbox.sslcommerz.com"

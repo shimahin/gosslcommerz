@@ -4,27 +4,27 @@ import (
 	"net/url"
 	"strconv"
 	"io/ioutil"
-	"fmt"
+
 	"net/http"
-	"github.com/shimahin/gosslcommerz/models"
 	"encoding/json"
+	"github.com/shimahin/gosslcommerz/models"
+
+	"fmt"
 )
 
 const TRANSACTION_QUERY_URI = "validator/api/merchantTransIDvalidationAPI.php"
 
-func (s *SslCommerz) TransactionQuery(sessionkey []string, storeID string, storePass string, v string, format string) (*models.OrderValidationResponse, error) {
+func (s *SslCommerz) TransactionQuery(transactionID []string, storeID string, storePass string) (*models.TransactionQueryResponse, error) {
 
 	data := url.Values{}
 
-	data.Set("sessionkey", sessionkey[0])
+	data.Set("tran_id", transactionID[0])
 	data.Set("store_id", storeID)
 	data.Set("store_passwd", storePass)
-	data.Set("v", v)
-	data.Set("format", format)
 
 	u, _ := url.ParseRequestURI(SANDBOX_GATEWAY)
 	u.Path = TRANSACTION_QUERY_URI
-	u.RawQuery = data.Encode()
+	//u.RawQuery = data.Encode()
 
 	sessionURL := u.String()
 
@@ -49,7 +49,7 @@ func (s *SslCommerz) TransactionQuery(sessionkey []string, storeID string, store
 	// SSL Commerz api is weired , it responses with 200 even if the request fails , WTF!
 	// So check the struct not the status code !
 
-	var resp models.OrderValidationResponse
+	var resp models.TransactionQueryResponse
 	json.Unmarshal(body, &resp)
 
 	return &resp, nil
