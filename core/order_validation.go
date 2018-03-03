@@ -3,12 +3,12 @@ package core
 import (
 	"encoding/json"
 
+	"fmt"
 	"github.com/shimahin/gosslcommerz/models"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
-	"fmt"
 )
 
 const ORDER_VALIDATION_URI = "validator/api/validationserverAPI.php"

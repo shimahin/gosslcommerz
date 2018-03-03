@@ -1,13 +1,13 @@
 package core
 
 import (
+	"io/ioutil"
 	"net/url"
 	"strconv"
-	"io/ioutil"
 
-	"net/http"
 	"encoding/json"
 	"github.com/shimahin/gosslcommerz/models"
+	"net/http"
 
 	"fmt"
 )
@@ -54,4 +54,3 @@ func (s *SslCommerz) TransactionQuery(transactionID []string, storeID string, st
 
 	return &resp, nil
 }
-
