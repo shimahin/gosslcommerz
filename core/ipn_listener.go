@@ -48,6 +48,13 @@ curl -X POST localhost:8080/ipn -d 'tran_id=5a16c68b23783&val_id=1711231900331kH
 	2/12/2018 1:06:13 PM bank_tran_id [180212130454TulpU0ADylAw4ci]
 */
 
+func GetSslCommerzIPNListener(storeId string, storePass string) *SslCommerz {
+	return &SslCommerz{
+		StoreId:   storeId,
+		StorePass: storePass,
+	}
+}
+
 func (s *SslCommerz) IPNListener(request *http.Request) (map[string]interface{}, error) {
 
 	// IPN sends the data to IPN URL as Query Request URI so ,

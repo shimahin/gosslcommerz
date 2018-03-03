@@ -1,15 +1,15 @@
 package tests
 
 import (
-	//"github.com/shimahin/gosslcommerz/core"
 	"fmt"
-	//"net/url"
 	"github.com/gin-gonic/gin"
+	"github.com/shimahin/gosslcommerz/core"
+	"testing"
 )
 
-func main() {
+func TestIPN(t *testing.T) {
 
-	//var sslcom core.SslCommerz
+	sslcom := core.GetSslCommerzIPNListener("test_shophobe", "test_shophobe@ssl")
 
 	router := gin.Default()
 
@@ -19,6 +19,24 @@ func main() {
 		fmt.Println(c.Request.URL.Query())
 
 		fmt.Printf("%+v", c.Request)
+
+		data, err := sslcom.IPNListener(c.Request)
+		if err != nil {
+			t.Error(err.Error())
+		}
+
+		x := core.SslCommerz{}
+
+		orderResp, err := x.CheckValidation(data["val_id"].([]string), sslcom.StoreId, sslcom.StorePass, "1", "json")
+
+		if err != nil {
+			t.Error(err.Error())
+		}
+
+		t.Log(orderResp)
+
+		//transactionQuery , err := x.TransactionQuery(data["sessionkey"].([]string), sslcom.StoreId, sslcom.StorePass, "1", "json")
+
 	})
 	router.Run(":8080")
 }

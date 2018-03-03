@@ -42,10 +42,12 @@ func TestCreateSession(t *testing.T) {
 		ValueD:           "ref004_D",
 	}
 
-	sslcom := core.GetSslCommerzController(&data)
+	sslcom := core.GetSslCommerzIPNListener(data.StoreId, data.StorePassword)
 	/*
 	   data.Set("multi_card_name", "mastercard,visacard,amexcard,brac_visa,dbbl_visa,city_visa,ebl_visa,    sbl_visa,brac_master,dbbl_master,city_master,ebl_master,sbl_master,city_amex,qcash,dbbl_nexus,bankasia,abbank,ibbl,mtbl,bkash,dbblmobilebanking,city")
 	*/
+
+	fmt.Println(sslcom)
 
 	body, err := sslcom.CreateSession()
 	if err != nil {

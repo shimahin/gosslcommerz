@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+	"fmt"
 )
 
 const SANDBOX_GATEWAY = "https://sandbox.sslcommerz.com"
@@ -20,7 +21,7 @@ type SslCommerz struct {
 	resp      *models.SessionResponse
 }
 
-func GetSslCommerzController(req *models.RequestValue) *SslCommerz {
+func GetSslCommerzSession(req *models.RequestValue) *SslCommerz {
 	return &SslCommerz{
 		req: req,
 	}
@@ -87,6 +88,7 @@ func (s *SslCommerz) CreateSession() (*models.SessionResponse, error) {
 	var resp models.SessionResponse
 	json.Unmarshal(body, &resp)
 	s.resp = &resp
+
 	return &resp, nil
 }
 
