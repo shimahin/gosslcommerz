@@ -55,7 +55,7 @@ func (s *SslCommerz) CreateSession() (*models.SessionResponse, error) {
 	data.Set("ship_state", s.req.ShipState)
 	data.Set("ship_postcode", s.req.ShipPostCode)
 	data.Set("ship_country", s.req.ShipCountry)
-	data.Set("multi_card_name", strings.Join(s.req.MultiCardName, ","))
+	data.Set("multi_card_name", strings.Join(s.req.MultiCardName, ",")) //8
 	data.Set("value_a", s.req.ValueA)
 	data.Set("value_b", s.req.ValueB)
 	data.Set("value_c", s.req.ValueC)
