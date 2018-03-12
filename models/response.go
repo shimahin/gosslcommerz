@@ -133,3 +133,12 @@ type ElementDetails struct {
 	EmiIssuer             string `json:"emi_issuer"`
 	Error                 string `json:"error"`
 }
+
+type RefundResponse struct {
+	APIConnect  string `json:"APIConnect"`
+	BankTranID  string `json:"bank_tran_id"`
+	TransID     string `json:"trans_id"`
+	RefundRefID string `json:"refund_ref_id"`
+	Status      string `json:"status"`
+	ErrorReason string `json:"errorReason"`
+}

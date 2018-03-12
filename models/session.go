@@ -32,3 +32,27 @@ type RequestValue struct {
 	ValueC           string   `json:"value_c"`
 	ValueD           string   `json:"value_d"`
 }
+
+type OrderValidationRequest struct {
+	StoreId       string `json:"store_id"`
+	StorePassword string `json:"store_password"`
+	ValId         string `json:"val_id"`
+	Format        string `json:"format"`
+	V             int    `json:"v"`
+}
+
+type RefundApiRequest struct{
+	BankTranId string `json:"bank_tran_id"`
+	StoreID string `json:"store_id"`
+	StorePasswd string `json:"store_passwd"`
+	RefundAmount int `json:"refund_amount"`
+	RefundRemarks string `json:"refund_remarks"`
+	RefId string `json:"ref_id"`
+	Format string `json:"format"`
+}
+
+type TransactionQueryRequest struct {
+	TranId string `json:"tran_id"`
+	StoreId string `json:"store_id"`
+	StorePasswd string `json:"store_passwd"`
+}
