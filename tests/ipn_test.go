@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/shimahin/gosslcommerz/core"
 	"testing"
+	//"github.com/shimahin/gosslcommerz/models"
 )
 
 func TestIPN(t *testing.T) {
@@ -20,23 +21,12 @@ func TestIPN(t *testing.T) {
 
 		fmt.Printf("%+v", c.Request)
 
-		data, err := sslcom.IPNListener(c.Request)
+		ipnResp , err := sslcom.IPNListener(c.Request)
 		if err != nil {
 			t.Error(err.Error())
 		}
 
-		x := core.SslCommerz{}
-
-		orderResp, err := x.CheckValidation(data["val_id"].([]string), sslcom.StoreId, sslcom.StorePass, "1", "json")
-
-		if err != nil {
-			t.Error(err.Error())
-		}
-
-		t.Log(orderResp)
-
-		transactionQuery, err := x.TransactionQuery(data["tran_id"].([]string), sslcom.StoreId, sslcom.StorePass)
-		fmt.Println("Transaction Query : ", transactionQuery)
+		fmt.Println("IPN TESTING RESPONSE : ",ipnResp)
 
 	})
 	router.Run(":8080")

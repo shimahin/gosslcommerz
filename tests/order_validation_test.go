@@ -5,7 +5,6 @@ import (
 	"testing"
 	"github.com/shimahin/gosslcommerz/core"
 	"fmt"
-	"strconv"
 )
 
 func TestOrderValidation(t *testing.T) {
@@ -20,7 +19,8 @@ func TestOrderValidation(t *testing.T) {
 
 	sslcom := core.GetSslCommerzIPNListener(data.StoreId , data.StorePassword)
 
-	orderResponse , err := sslcom.CheckValidation([]string{data.ValId},data.StoreId,data.StorePassword,strconv.Itoa(data.V),data.Format)
+	orderResponse , err := sslcom.CheckValidation(&data)
+
 	if err != nil{
 		fmt.Println(err.Error())
 	}

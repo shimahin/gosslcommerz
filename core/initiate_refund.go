@@ -12,17 +12,17 @@ import (
 
 const REFUNDING_URI  = "validator/api/merchantTransIDvalidationAPI.php"
 
-func (s *SslCommerz) InitiateRefunding(bank_tran_id string , store_id string , store_passwd string , refund_amount int , refund_remarks string , ref_id string , format string) (models.RefundResponse,error) {
+func (s *SslCommerz) InitiateRefunding(request *models.RefundApiRequest) (models.RefundResponse,error) {
 
 	data := url.Values{}
 
-	data.Set("bank_tran_id",bank_tran_id)
-	data.Set("store_id",store_id)
-	data.Set("store_passwd",store_passwd)
-	data.Set("refund_amount",strconv.Itoa(refund_amount))
-	data.Set("refund_remarks",refund_remarks)
-	data.Set("refe_id",ref_id)
-	data.Set("format",format)
+	data.Set("bank_tran_id",request.BankTranId)
+	data.Set("store_id",request.StoreID)
+	data.Set("store_passwd",request.StorePasswd)
+	data.Set("refund_amount",strconv.Itoa(request.RefundAmount))
+	data.Set("refund_remarks",request.RefundRemarks)
+	data.Set("refe_id",request.RefId)
+	data.Set("format",request.Format)
 
 	u , _ := url.ParseRequestURI(SANDBOX_GATEWAY)
 	u.Path = REFUNDING_URI
@@ -55,9 +55,7 @@ func (s *SslCommerz) InitiateRefunding(bank_tran_id string , store_id string , s
 	// SSL Commerz api is weired , it responses with 200 even if the request fails , WTF!
 	// So check the struct not the status code !
 
-
 	json.Unmarshal(body, &resp)
-
 
 	return resp, nil
 

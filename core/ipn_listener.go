@@ -85,6 +85,7 @@ func (s *SslCommerz) IPNListener(request *http.Request) (map[string]interface{},
 			Make a string by combining the parameters' key and value. Example: key1=value1&key2=value2&key3=value3&key4=value4&key5=value5&store_passwd=Your Store Password
 			Generate md5 hash of the value and match with verify_sign
 		*/
+
 		keys := strings.Split(ipnResponse["verify_key"].([]string)[0], ",")
 
 		var queryStrings []string

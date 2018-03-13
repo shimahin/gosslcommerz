@@ -23,7 +23,7 @@ func TestRefundAPI(t *testing.T)  {
 
 	fmt.Println(sslcom)
 
-	refundResp , err := sslcom.InitiateRefunding(data.BankTranId,data.StoreID,data.StorePasswd,data.RefundAmount,data.RefundRemarks,data.RefId,data.Format)
+	refundResp , err := sslcom.InitiateRefunding(&data)
 	if err != nil{
 		fmt.Println(err.Error())
 	}
