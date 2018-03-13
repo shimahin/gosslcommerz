@@ -1,34 +1,33 @@
 package tests
 
 import (
-	"testing"
-	"github.com/shimahin/gosslcommerz/models"
-	"github.com/shimahin/gosslcommerz/core"
 	"fmt"
+	"github.com/shimahin/gosslcommerz/core"
+	"github.com/shimahin/gosslcommerz/models"
+	"testing"
 )
 
-func TestRefundAPI(t *testing.T)  {
+func TestRefundAPI(t *testing.T) {
 
 	data := models.RefundApiRequest{
-		BankTranId: "1709162345070ANJdZV8LyI4cMw",
-		StoreID: "test_shophobe",
-		StorePasswd:"test_shophobe@ssl",
-		RefundAmount:1000,
-		RefundRemarks:"Remarks string",
-		RefId:"Sample referance",
-		Format:"json",
+		BankTranId:    "1709162345070ANJdZV8LyI4cMw",
+		StoreID:       "test_shophobe",
+		StorePasswd:   "test_shophobe@ssl",
+		RefundAmount:  1000,
+		RefundRemarks: "Remarks string",
+		RefId:         "Sample referance",
+		Format:        "json",
 	}
 
-	sslcom := core.GetSslCommerzIPNListener(data.StoreID , data.StorePasswd)
+	sslcom := core.GetSslCommerzIPNListener(data.StoreID, data.StorePasswd)
 
 	fmt.Println(sslcom)
 
-	refundResp , err := sslcom.InitiateRefunding(&data)
-	if err != nil{
+	refundResp, err := sslcom.InitiateRefunding(&data)
+	if err != nil {
 		fmt.Println(err.Error())
 	}
 
 	t.Log(refundResp)
-
 
 }

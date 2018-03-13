@@ -1,30 +1,30 @@
 package core
 
 import (
-	"net/url"
-	"strconv"
-	"net/http"
+	"encoding/json"
+	"fmt"
 	"github.com/shimahin/gosslcommerz/models"
 	"io/ioutil"
-	"fmt"
-	"encoding/json"
+	"net/http"
+	"net/url"
+	"strconv"
 )
 
-const REFUNDING_URI  = "validator/api/merchantTransIDvalidationAPI.php"
+const REFUNDING_URI = "validator/api/merchantTransIDvalidationAPI.php"
 
-func (s *SslCommerz) InitiateRefunding(request *models.RefundApiRequest) (models.RefundResponse,error) {
+func (s *SslCommerz) InitiateRefunding(request *models.RefundApiRequest) (models.RefundResponse, error) {
 
 	data := url.Values{}
 
-	data.Set("bank_tran_id",request.BankTranId)
-	data.Set("store_id",request.StoreID)
-	data.Set("store_passwd",request.StorePasswd)
-	data.Set("refund_amount",strconv.Itoa(request.RefundAmount))
-	data.Set("refund_remarks",request.RefundRemarks)
-	data.Set("refe_id",request.RefId)
-	data.Set("format",request.Format)
+	data.Set("bank_tran_id", request.BankTranId)
+	data.Set("store_id", request.StoreID)
+	data.Set("store_passwd", request.StorePasswd)
+	data.Set("refund_amount", strconv.Itoa(request.RefundAmount))
+	data.Set("refund_remarks", request.RefundRemarks)
+	data.Set("refe_id", request.RefId)
+	data.Set("format", request.Format)
 
-	u , _ := url.ParseRequestURI(SANDBOX_GATEWAY)
+	u, _ := url.ParseRequestURI(SANDBOX_GATEWAY)
 	u.Path = REFUNDING_URI
 	u.RawQuery = data.Encode()
 
@@ -34,10 +34,9 @@ func (s *SslCommerz) InitiateRefunding(request *models.RefundApiRequest) (models
 
 	var resp models.RefundResponse
 
-	r , err := http.NewRequest("GET",sessionURL,nil)
-	if err != nil{
-
-		return resp,err
+	r, err := http.NewRequest("GET", sessionURL, nil)
+	if err != nil {
+		return resp, err
 	}
 
 	r.Header.Add("Content-Type", "application/x-www-form-urlencoded")
@@ -45,7 +44,7 @@ func (s *SslCommerz) InitiateRefunding(request *models.RefundApiRequest) (models
 
 	response, err := client.Do(r)
 	if err != nil {
-		return resp , err
+		return resp, err
 	}
 
 	body, _ := ioutil.ReadAll(response.Body)

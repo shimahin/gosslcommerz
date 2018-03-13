@@ -9,6 +9,8 @@ import (
 
 func TestCreateSession(t *testing.T) {
 
+	var sessionResponse *models.SessionResponse
+
 	data := models.RequestValue{
 		StoreId:          "test_shophobe",
 		StorePassword:    "test_shophobe@ssl",
@@ -49,11 +51,12 @@ func TestCreateSession(t *testing.T) {
 
 	fmt.Println(sslcom)
 
-	body, err := sslcom.CreateSession()
+	sessionResponse, err := sslcom.CreateSession()
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(body)
+	fmt.Println(sessionResponse)
+
 	paymentURL := sslcom.GetDirectPaymentURL()
 	if paymentURL == "" {
 		fmt.Println("nill")

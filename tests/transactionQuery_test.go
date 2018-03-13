@@ -1,23 +1,31 @@
 package tests
 
 import (
-	"testing"
-	"github.com/shimahin/gosslcommerz/models"
-	"github.com/shimahin/gosslcommerz/core"
 	"fmt"
+	"github.com/shimahin/gosslcommerz/core"
+	"github.com/shimahin/gosslcommerz/models"
+	"testing"
 )
 
-func TestTransactionQuery(t *testing.T)  {
+func TestTransactionQuery(t *testing.T) {
 	data := models.TransactionQueryRequest{
-		StoreId : "test_shophobe",
-		StorePasswd : "test_shophobe@ssl",
-		TranId : "5a16c68b23783",
+		StoreId:     "test_shophobe",
+		StorePasswd: "test_shophobe@ssl",
+		TranId:      "59C2A4F6432F8",
+		Format:      "json",
 	}
 
-	sslcom := core.GetSslCommerzIPNListener(data.StoreId , data.StorePasswd)
+	//sslcom := core.GetSslCommerzIPNListener(data.StoreId, data.StorePasswd)
+	//
+	//tranResponse, err := sslcom.TransactionQuery(&data)
+	//if err != nil {
+	//	fmt.Println(err.Error())
+	//}
 
-	tranResponse , err := sslcom.TransactionQuery(&data)
-	if err != nil{
+	x := core.SslCommerz{}
+
+	tranResponse, err := x.TransactionQuery(&data)
+	if err != nil {
 		fmt.Println(err.Error())
 	}
 	t.Log(tranResponse)

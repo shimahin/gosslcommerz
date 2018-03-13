@@ -1,10 +1,10 @@
 package tests
 
 import (
+	"fmt"
+	"github.com/shimahin/gosslcommerz/core"
 	"github.com/shimahin/gosslcommerz/models"
 	"testing"
-	"github.com/shimahin/gosslcommerz/core"
-	"fmt"
 )
 
 func TestOrderValidation(t *testing.T) {
@@ -17,11 +17,11 @@ func TestOrderValidation(t *testing.T) {
 		V:             1,
 	}
 
-	sslcom := core.GetSslCommerzIPNListener(data.StoreId , data.StorePassword)
+	sslcom := core.GetSslCommerzIPNListener(data.StoreId, data.StorePassword)
 
-	orderResponse , err := sslcom.CheckValidation(&data)
+	orderResponse, err := sslcom.CheckValidation(&data)
 
-	if err != nil{
+	if err != nil {
 		fmt.Println(err.Error())
 	}
 	t.Log(orderResponse)

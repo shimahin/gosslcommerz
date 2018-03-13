@@ -21,12 +21,12 @@ func TestIPN(t *testing.T) {
 
 		fmt.Printf("%+v", c.Request)
 
-		ipnResp , err := sslcom.IPNListener(c.Request)
+		ipnResp, err := sslcom.IPNListener(c.Request)
 		if err != nil {
 			t.Error(err.Error())
 		}
 
-		fmt.Println("IPN TESTING RESPONSE : ",ipnResp)
+		fmt.Println("IPN TESTING RESPONSE : ", ipnResp)
 
 	})
 	router.Run(":8080")
