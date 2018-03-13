@@ -1,14 +1,12 @@
 package core
 
 import (
+	"encoding/json"
+	"github.com/shimahin/gosslcommerz/models"
 	"io/ioutil"
+	"net/http"
 	"net/url"
 	"strconv"
-
-	"encoding/json"
-	"fmt"
-	"github.com/shimahin/gosslcommerz/models"
-	"net/http"
 	"strings"
 )
 
@@ -49,13 +47,10 @@ func (s *SslCommerz) TransactionQuery(request *models.TransactionQueryRequest) (
 
 	body, _ := ioutil.ReadAll(response.Body)
 
-	//fmt.Println(string(body))
-
 	// SSL Commerz api is weired , it responses with 200 even if the request fails , WTF!
 	// So check the struct not the status code !
 
 	json.Unmarshal(body, &resp)
 
-	fmt.Println(resp)
 	return &resp, nil
 }

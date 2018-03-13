@@ -63,6 +63,8 @@ func (s *SslCommerz) CreateSession() (*models.SessionResponse, error) {
 
 	u, _ := url.ParseRequestURI(SANDBOX_GATEWAY)
 	u.Path = SESSION_URI
+	//u.RawQuery = data.Encode()
+
 	sessionURL := u.String()
 
 	client := &http.Client{}

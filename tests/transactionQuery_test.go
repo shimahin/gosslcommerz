@@ -15,13 +15,6 @@ func TestTransactionQuery(t *testing.T) {
 		Format:      "json",
 	}
 
-	//sslcom := core.GetSslCommerzIPNListener(data.StoreId, data.StorePasswd)
-	//
-	//tranResponse, err := sslcom.TransactionQuery(&data)
-	//if err != nil {
-	//	fmt.Println(err.Error())
-	//}
-
 	x := core.SslCommerz{}
 
 	tranResponse, err := x.TransactionQuery(&data)

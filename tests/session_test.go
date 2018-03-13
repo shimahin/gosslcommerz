@@ -9,14 +9,13 @@ import (
 
 func TestCreateSession(t *testing.T) {
 
-	var sessionResponse *models.SessionResponse
 
 	data := models.RequestValue{
 		StoreId:          "test_shophobe",
 		StorePassword:    "test_shophobe@ssl",
 		TotalAmount:      "150",
 		Currency:         "BDT",
-		TranID:           "CY123",
+		TranID:           "59C2A4F6432F8",
 		SuccessURL:       "http://yoursite.com/success.php",
 		FailUrl:          "http://yoursite.com/fail.php",
 		CancelURL:        "http://yoursite.com/cancel.php",
@@ -44,12 +43,11 @@ func TestCreateSession(t *testing.T) {
 		ValueD:           "ref004_D",
 	}
 
-	sslcom := core.GetSslCommerzIPNListener(data.StoreId, data.StorePassword)
-	/*
+		/*
 	   data.Set("multi_card_name", "mastercard,visacard,amexcard,brac_visa,dbbl_visa,city_visa,ebl_visa,sbl_visa,brac_master,dbbl_master,city_master,ebl_master,sbl_master,city_amex,qcash,dbbl_nexus,bankasia,abbank,ibbl,mtbl,bkash,dbblmobilebanking,city")
 	*/
 
-	fmt.Println(sslcom)
+	sslcom := core.GetSslCommerzSession(&data)
 
 	sessionResponse, err := sslcom.CreateSession()
 	if err != nil {
@@ -59,7 +57,7 @@ func TestCreateSession(t *testing.T) {
 
 	paymentURL := sslcom.GetDirectPaymentURL()
 	if paymentURL == "" {
-		fmt.Println("nill")
+		fmt.Println("nil")
 	} else {
 		fmt.Println(paymentURL)
 	}
